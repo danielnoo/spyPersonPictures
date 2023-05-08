@@ -2,5 +2,9 @@
 <button (click)="onCreateClick()">add a thing to the db</button>
 <button (click)="onGetAllClick()">get all</button>
 
-<app-login></app-login>
+<h5>{{ newGameName }}</h5>
+<button (click)="onNewGameClick()">
+  click here to create a game with this name
+</button>
+
 <router-outlet></router-outlet>

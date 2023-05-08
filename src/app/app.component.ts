@@ -1,11 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { map, catchError, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { FirebaseService } from 'services/firebase.service';
 import { nameByRace } from 'fantasy-name-generator';
 import { User } from 'models/models';
-import { LoginComponent } from './components/login/login.component';
+import { LoginComponent } from './components/game/login/login.component';
 import { FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
+import { GameData } from 'models/models';
 
 // should create a game and display a shareable link before the button is clicked
 // route to game/:id component and display login if no name is found in local storage
@@ -15,11 +17,14 @@ import { FormBuilder } from '@angular/forms';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'spypersonpictures';
   players: User[];
   newGameName: string;
-  constructor(private firebaseService: FirebaseService) {}
+  constructor(
+    private _firebaseService: FirebaseService,
+    private _router: Router
+  ) {}
   ngOnInit() {
     console.log('init');
     this.newGameName = `${nameByRace('elf', { gender: 'female' })}-${nameByRace(
@@ -31,11 +36,11 @@ export class AppComponent {
 
   onCreateClick() {
     const randomName = nameByRace('elf', { gender: 'female' });
-    this.firebaseService.createUser({ name: randomName.toString() });
+    this._firebaseService.createUser({ name: randomName.toString() });
   }
 
   onGetAllClick() {
-    this.firebaseService
+    this._firebaseService
       .getAllUsers()
       .snapshotChanges()
       .pipe(
@@ -47,5 +52,10 @@ export class AppComponent {
         console.log(data);
         this.players = data;
       });
+  }
+
+  onNewGameClick() {
+    this._firebaseService.createGame({ name: this.newGameName, players: [] });
+    this._router.navigate([`/game/${this.newGameName}`]);
   }
 }

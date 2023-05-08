@@ -7,10 +7,11 @@ import { environment } from '../environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './components/login/login.component';
+import { LoginComponent } from './components/game/login/login.component';
+import { GameComponent } from './components/game/game.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent],
+  declarations: [AppComponent, LoginComponent, GameComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

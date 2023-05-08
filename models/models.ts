@@ -4,7 +4,8 @@ export interface User {
   team?: string;
 }
 
-export interface Game {
-  name: string;
-  players: User[];
+export interface GameData {
+  key?: string | null;
+  name?: string;
+  players?: User[];
 }
