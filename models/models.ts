@@ -9,3 +9,8 @@ export interface GameData {
   name?: string;
   players?: User[];
 }
+
+export interface LocalPlayerData {
+  gameName: string,
+  playerName: string
+}

@@ -1,0 +1,5 @@
+<div class="header-container">
+  <label for="playerName">Player Name:</label>
+  <input type="text" id="playerName" [(ngModel)]="playerName">
+  <button [disabled]="!isPlayerNameValid()" (click)="join()">Join</button>
+</div>

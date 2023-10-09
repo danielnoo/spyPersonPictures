@@ -4,9 +4,9 @@ import { Observable } from 'rxjs';
 import { FirebaseService } from 'services/firebase.service';
 import { nameByRace } from 'fantasy-name-generator';
 import { User } from 'models/models';
-import { LoginComponent } from './components/game/login/login.component';
+import { LoginComponent } from './components/login/login.component';
 import { FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { GameData } from 'models/models';
 
 // should create a game and display a shareable link before the button is clicked
@@ -23,7 +23,8 @@ export class AppComponent implements OnInit {
   newGameName: string;
   constructor(
     private _firebaseService: FirebaseService,
-    private _router: Router
+    private _router: Router,
+    private _route: ActivatedRoute
   ) {}
   ngOnInit() {
     console.log('init');
@@ -56,6 +57,6 @@ export class AppComponent implements OnInit {
 
   onNewGameClick() {
     this._firebaseService.createGame({ name: this.newGameName, players: [] });
-    this._router.navigate([`/game/${this.newGameName}`]);
+    this._router.navigate([`/game/${this.newGameName}`], {relativeTo: this._route});
   }
 }

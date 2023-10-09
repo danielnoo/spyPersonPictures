@@ -1,0 +1,9 @@
+<div class="create-game-wrapper" *ngIf="isLoginDisplayed">
+  <label for="playerName">Player Name:</label>
+  <input type="text" id="playerName" [(ngModel)]="playerName" (keyup)="validatePlayerName()" />
+
+  <button (click)="joinGame()" [disabled]="!isNameValid">Create Game</button>
+</div>
+
+<app-game *ngIf="isGameDisplayed"></app-game>
+
