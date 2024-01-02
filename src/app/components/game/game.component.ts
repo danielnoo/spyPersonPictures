@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FirebaseService } from '../../../../../services/firebase.service';
+import { FirebaseService } from '../../../../services/firebase.service';
 import { Observable, switchMap } from 'rxjs';
 import { Router } from '@angular/router';
-import { GameData } from '../../../../../models/models';
+import { GameData } from '../../../../models/models';
 
 @Component({
   selector: 'app-game',
@@ -19,6 +19,4 @@ export class GameComponent implements OnInit {
   ) {}
 
   ngOnInit() {}
-
-
 }
