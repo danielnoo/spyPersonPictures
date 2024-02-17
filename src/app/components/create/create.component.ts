@@ -34,7 +34,7 @@ export class CreateComponent implements OnInit {
   }
 
   createGame() {
-    this._firebaseService.createGame({ name: this.newGameName, players: [] });
+    this._firebaseService.createGame({ name: this.newGameName, players: [{name: 'poo'}] });
     this._router.navigate([`/game/${this.newGameName}`]);
   }
 }

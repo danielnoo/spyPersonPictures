@@ -2,8 +2,6 @@
   <label for="playerName">Player Name:</label>
   <input type="text" id="playerName" [(ngModel)]="playerName" (keyup)="validatePlayerName()" />
 
-  <button (click)="joinGame()" [disabled]="!isNameValid">Create Game</button>
+  <button (click)="joinGame()" [disabled]="!isNameValid">Join Game</button>
 </div>
-
-<app-game *ngIf="isGameDisplayed"></app-game>
 

@@ -11,6 +11,6 @@ export interface GameData {
 }
 
 export interface LocalPlayerData {
-  gameName: string,
-  playerName: string
+  playerName: string;
+  playerTeam: 'spec' | 'red' | 'blue';
 }

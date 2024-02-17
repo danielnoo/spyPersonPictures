@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-join',
@@ -6,10 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./join.component.css']
 })
 export class JoinComponent {
-  playerName: string = '';
+  playerName: string;
 
   isPlayerNameValid(): boolean {
-    const regex = /^[a-z0-9]{3,}$/i; // Alphanumeric with at least 3 characters
+    // Alphanumeric with at least 3 characters
+    const regex = /^[a-z0-9]{3,}$/i;
     return regex.test(this.playerName);
   }
 

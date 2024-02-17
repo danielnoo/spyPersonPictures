@@ -1,0 +1,20 @@
+<p>player-list works!</p>
+
+<ul>
+  <h2>Spectators</h2>
+  <li *ngFor="let spectator of spectators">
+    <span>{{spectator}}</span>
+  </li>
+</ul>
+<ul>
+  <h2>Red Team</h2>
+  <li *ngFor="let redPlayer of redList">
+    <span>{{redPlayer}}</span>
+  </li>
+</ul>
+<ul>
+  <h2>Blue Team</h2>
+  <li *ngFor="let bluePlayer of blueList">
+    <span>{{bluePlayer}}</span>
+  </li>
+</ul>

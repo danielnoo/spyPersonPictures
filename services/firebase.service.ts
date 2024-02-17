@@ -1,11 +1,8 @@
-import { Injectable } from '@angular/core';
-import {
-  AngularFireDatabase,
-  AngularFireObject,
-  AngularFireList,
-} from '@angular/fire/compat/database';
-import { User, GameData } from 'models/models';
-import { query } from '@angular/fire/database';
+import {Injectable} from '@angular/core';
+import {AngularFireDatabase, AngularFireList, AngularFireObject,} from '@angular/fire/compat/database';
+import {GameData, User} from 'models/models';
+import {Observable} from "rxjs";
+import {map} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +14,7 @@ export class FirebaseService {
   private _gameList: AngularFireList<GameData>;
 
   user: AngularFireObject<User>;
+
   constructor(private db: AngularFireDatabase) {
     this._userList = db.list(this._dbPath);
     this._gameList = db.list(this._gamePath);
@@ -26,7 +24,7 @@ export class FirebaseService {
     return this._userList;
   }
 
-  getGameData(gameName: string): AngularFireList<GameData> {
+  getAllGameData(gameName: string): AngularFireList<GameData> {
     return this._gameList;
   }
 
@@ -36,5 +34,31 @@ export class FirebaseService {
 
   createGame(game: GameData) {
     return this._gameList.push(game);
+  }
+
+  getGameByNameOld(gameName: string): Observable<GameData[]> {
+    return this.db.list<GameData>(this._gamePath, ref =>
+      ref.orderByChild('name').equalTo(gameName)
+    ).valueChanges();
+  }
+
+  getGameByName(gameName: string): Observable<GameData> {
+    return this.db.list<GameData>(this._gamePath, ref =>
+      ref.orderByChild('name').equalTo(gameName).limitToFirst(1)
+    ).snapshotChanges().pipe(
+      map(changes => {
+        const game = changes[0].payload.val() as GameData;
+        const key = changes[0].payload.key;
+        return {key, ...game};
+      })
+    );
+  }
+
+  // subscribeToGameChanges(gameKey: string): Observable<GameData> {
+  //   return this.db.object<GameData>(`${this._gamePath}/${gameKey}`).valueChanges();
+  // }
+
+  updateGameByKey(gameKey: string, newData: Partial<GameData>): Promise<void> {
+    return this.db.object(`${this._gamePath}/${gameKey}`).update(newData);
   }
 }

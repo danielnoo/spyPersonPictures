@@ -12,6 +12,7 @@ import { GameComponent } from './components/game/game.component';
 import { FormsModule } from '@angular/forms';
 import { CreateComponent } from './components/create/create.component';
 import { JoinComponent } from './components/join/join.component';
+import { PlayerListComponent } from './components/game/player-list/player-list.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { JoinComponent } from './components/join/join.component';
     GameComponent,
     CreateComponent,
     JoinComponent,
+    PlayerListComponent,
   ],
   imports: [
     BrowserModule,

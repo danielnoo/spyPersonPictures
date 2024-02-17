@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import { FormBuilder } from '@angular/forms';
 import {Observable, switchMap} from "rxjs";
 import {FirebaseService} from "../../../../services/firebase.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {LocalPlayerData} from "../../../../models/models";
+import firebase from "firebase/compat";
+import User = firebase.User;
 
 @Component({
   selector: 'app-login',
@@ -19,14 +20,15 @@ export class LoginComponent implements OnInit{
   username: string;
   gameName: string;
 
-  private _localPlayerData: LocalPlayerData;
-  constructor(private _firebaseService: FirebaseService, private _router: Router) {}
+  private _localPlayerData: User;
+  constructor(private _firebaseService: FirebaseService, private _router: Router, private _route: ActivatedRoute) {}
 
   ngOnInit() {
     this.gameName = this._router.url.split('/').pop();
 
     // check local storage to see if there is a name stored for this game
-    console.log(this._router.url);
+    // come back to this problem
+    console.log('game name set from route in game component', this.gameName);
     this.lookForNameInLocalStorage()
       // .pipe(
       //   switchMap((username) => {
@@ -54,6 +56,10 @@ export class LoginComponent implements OnInit{
       console.log('Game created for:', this.playerName);
 
       // set name to localstorage under gamename object
+      localStorage.setItem('gamename', this.gameName)
+      localStorage.setItem('playername', this.playerName)
+      localStorage.setItem('teamname', 'spec')
+
     }
   }
 
@@ -63,8 +69,6 @@ export class LoginComponent implements OnInit{
         subscriber.next(localStorage.getItem(this.gameName));
         subscriber.complete();
       } else {
-        this.isLoginDisplayed = false;
-        this.isGameDisplayed = true;
         subscriber.next(null);
         subscriber.complete();
       }

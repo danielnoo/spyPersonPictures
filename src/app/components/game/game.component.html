@@ -1,3 +1,11 @@
+<app-login></app-login>
 <p>game works!</p>
+
+<div class="header-container">
+
+  <button (click)="makeUpdate()">Join</button>
+</div>
+
+<app-player-list [spectators]="spectatorsList" [redList]="redList" [blueList]="blueList"></app-player-list>
 
 
